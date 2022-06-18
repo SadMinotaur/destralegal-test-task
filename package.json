@@ -9,22 +9,34 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "types": "tsc --noEmit && eslint -c .eslintrc.json",
+    "prodmode": "next build && npx next start -p 3000",
+    "export": "next build && next export",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "deadcode": "ts-prune --project tsconfig.json"
   },
   "dependencies": {
-    "@blueprintjs/core": "^4.5.0",
+    "@blueprintjs/core": "^4.5.1",
+    "classnames": "^2.3.1",
     "next": "12.1.6",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "the-new-css-reset": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "17.0.42",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
-    "eslint": "8.17.0",
+    "@typescript-eslint/eslint-plugin": "5.28.0",
+    "@typescript-eslint/parser": "5.28.0",
+    "eslint": "8.2.0",
     "eslint-config-next": "12.1.6",
+    "eslint-plugin-react": "7.30.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "sass": "^1.52.3",
+    "ts-prune": "^0.10.3",
     "typescript": "4.7.3"
   },
   "packageManager": "yarn@3.2.1"

@@ -1,0 +1,16 @@
+.headerWrapper {
+  padding: 10px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: lightblue;
+
+  .leftText {
+  }
+
+  .buttonStyles {
+    border-radius: 10px;
+    padding: 10px 60px;
+  }
+}
