@@ -1,0 +1,14 @@
+.dialogBody {
+  width: 100%;
+  padding: 20px 10px 0 10px;
+
+  .inputsGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonFooter {
+    margin-top: 20px;
+  }
+}

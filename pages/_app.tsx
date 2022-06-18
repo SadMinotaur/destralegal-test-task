@@ -1,7 +1,7 @@
+import "the-new-css-reset/css/reset.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import type { AppProps } from "next/app";
 import React from "react";
-import "the-new-css-reset/css/reset.css";
 import { AppContext, initialState, mainReducer } from "../src/pageReducer";
 import "../src/styles/globals.scss";
 

@@ -1,2 +1,2 @@
-import Table from "./../../src/routes/table";
+import Table from "@routes/table";
 export default Table;

@@ -5,7 +5,11 @@ import styles from "./styles.module.scss";
 
 const cnb = className.bind(styles);
 
-export default function Header(): React.ReactElement {
+interface Props {
+  onEnterClick?: () => void;
+}
+
+export default function Header({ onEnterClick }: Readonly<Props>): React.ReactElement {
   return (
     <header className={cnb("headerWrapper")}>
       <h5 className={cnb("bp4-heading", "leftText")}>
@@ -13,7 +17,7 @@ export default function Header(): React.ReactElement {
         <br />
         задание
       </h5>
-      <Button className={cnb("buttonStyles")} text='Вход' intent='primary' />
+      <Button className={cnb("buttonStyles")} text='Вход' intent='primary' onClick={onEnterClick} />
     </header>
   );
 }
