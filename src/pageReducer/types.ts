@@ -3,7 +3,7 @@ export interface TokenPair {
   refresh_token: string;
 }
 
-export interface SetUserPayload extends TokenPair {
+interface SetUserPayload extends TokenPair {
   userEmail: string;
 }
 
@@ -15,7 +15,7 @@ export interface SetUserAction {
   type: "SET_USER_DATA";
   payload: SetUserPayload;
 }
-export interface ResetStoreAction {
+interface ResetStoreAction {
   type: "RESET_STORE";
 }
 export type AllAction = SetTokenAction | SetUserAction | ResetStoreAction;

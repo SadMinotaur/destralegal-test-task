@@ -5,13 +5,13 @@ interface Arguments<T> {
   access_token: string;
   refresh_token: string;
   mainRequest: (access_token: string) => Promise<T>;
-  tokenRequest: (refresh_token: string) => void;
+  tokenRefresh: (refresh_token: string) => void;
 }
 
 export const refreshRequestWrapper = async <T extends ContentResponse | TotalCountResponse>({
   access_token,
   refresh_token,
-  tokenRequest,
+  tokenRefresh,
   mainRequest
 }: Arguments<T>) => {
   const requestResp: T = await mainRequest(access_token);
@@ -20,7 +20,7 @@ export const refreshRequestWrapper = async <T extends ContentResponse | TotalCou
     const refreshResult = await refreshRequest(refresh_token);
     const refreshedAccess = refreshResult.result?.access_token;
     if (refreshedAccess) {
-      tokenRequest(refreshedAccess);
+      tokenRefresh(refreshedAccess);
       const requestResp: T = await mainRequest(refreshedAccess);
       return requestResp;
     }

@@ -13,8 +13,8 @@ interface Props {
 }
 
 export default function Header({
-  onButtonClick,
   username,
+  onButtonClick,
   onUserClick
 }: Readonly<Props>): React.ReactElement {
   return (

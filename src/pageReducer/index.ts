@@ -29,6 +29,11 @@ const setUser = (state: StoreType, action: SetUserAction): StoreType => {
   return nextState;
 };
 
+const resetStote = (): StoreType => {
+  localStorage.setItem(appState, JSON.stringify(initialState));
+  return initialState;
+};
+
 const mainReducer = (state: StoreType, action: AllAction): StoreType => {
   switch (action.type) {
     case "REFRESH_TOKEN":
@@ -36,7 +41,7 @@ const mainReducer = (state: StoreType, action: AllAction): StoreType => {
     case "SET_USER_DATA":
       return setUser(state, action);
     case "RESET_STORE":
-      return initialState;
+      return resetStote();
     default:
       return state;
   }
@@ -62,6 +67,5 @@ export const useStateReducer = (): NonNullable<ContextStateType> => {
 
   return { state, reducer };
 };
-
 export const AppContext = React.createContext<ContextStateType>(null);
 export const useStateValue = () => React.useContext(AppContext);

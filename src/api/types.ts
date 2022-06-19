@@ -21,13 +21,10 @@ export interface ContentRequestParams {
   limit?: number;
 }
 
-enum Category {
-  Item = "ITEM"
-}
 export interface CardType {
   _id: string;
   name: string;
-  category: Category;
+  category: string;
 }
 export interface ContentResponse extends BaseRequestResponse {
   result?: CardType[];
