@@ -1,0 +1,46 @@
+.headerWrapper {
+  background: white;
+  position: sticky;
+  top: 0;
+  padding: 10px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  gap: 5px;
+
+  .titleStyle {
+    margin: 0;
+  }
+
+  .buttonStyles {
+    border-radius: 10px;
+    width: 100px;
+    padding: 10px 0;
+  }
+}
+
+.userStyles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .titleStyle {
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @media (max-width: 400px) {
+      width: 50px;
+    }
+  }
+
+  .avatarIcon {
+    $size: 30px;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    border: 2px solid orange;
+    background: lightpink;
+  }
+}
