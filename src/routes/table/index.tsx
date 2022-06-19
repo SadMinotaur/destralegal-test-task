@@ -1,6 +1,6 @@
 import Header from "@components/header";
 import { contentRequest, totalCountRequest } from "@src/api";
-import { CardType, ContentRequestParams } from "@src/api/types";
+import { CardType } from "@src/api/types";
 import Pagination from "@src/components/pagination";
 import TableCard from "@src/components/table-card";
 import { useStateValue } from "@src/pageReducer";
@@ -9,22 +9,22 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.scss";
-import { refreshRequestWrapper } from "./utils";
+import { defaultLimit, defaultPage, refreshRequestWrapper } from "./utils";
 
 const cnb = className.bind(styles);
-const defaultLimit = 10;
-const defaultPage = 0;
 
 export default function Table(): React.ReactElement {
   const router = useRouter();
   const stateValue = useStateValue();
 
-  const [queryParams, setQueryParams] = React.useState<ContentRequestParams>({
-    limit: defaultLimit,
-    page: defaultPage
-  });
   const [cardList, setCardList] = React.useState<CardType[]>([]);
   const [totalCount, setTotalCount] = React.useState<number>(0);
+  const [page, setPage] = React.useState<number>(defaultPage);
+
+  const queryParams = {
+    limit: defaultLimit,
+    page
+  } as const;
 
   const access_token = stateValue?.state.access_token;
   const refresh_token = stateValue?.state.refresh_token;
@@ -32,11 +32,18 @@ export default function Table(): React.ReactElement {
 
   const tokenRefresh = (refresh: string): void =>
     stateValue?.reducer({ type: "REFRESH_TOKEN", payload: refresh });
-
   const onHeaderClick = (): void => {
     router.push({ pathname: "/login" });
     stateValue?.reducer({ type: "RESET_STORE" });
   };
+  const onPageSelect = (pageSelected: number): void => {
+    router.push({ pathname: "", query: { page: pageSelected } });
+  };
+
+  React.useEffect(() => {
+    const pageParsed = Number(router.query?.page);
+    if (pageParsed || pageParsed === 0) setPage(pageParsed);
+  }, [router.query?.page]);
 
   React.useEffect(() => {
     if (tokensNotEmpty) {
@@ -64,7 +71,7 @@ export default function Table(): React.ReactElement {
         if (result) setCardList(result);
       });
     }
-  }, [refresh_token, queryParams]);
+  }, [refresh_token, queryParams.page]);
 
   return (
     <>
@@ -74,12 +81,13 @@ export default function Table(): React.ReactElement {
       </Head>
       <Header username={stateValue?.state.userEmail} onUserClick={onHeaderClick} />
       <main className={cnb("tableContentWrapper")}>
-        {cardList.map((item) => (
-          <TableCard key={item._id} category={item.category} name={item.name} />
-        ))}
+        {Array.isArray(cardList) &&
+          cardList.map((item) => (
+            <TableCard key={item._id} category={item.category} name={item.name} />
+          ))}
       </main>
       <Pagination
-        setQuery={setQueryParams}
+        setPage={onPageSelect}
         totalCount={totalCount}
         limit={queryParams.limit ?? defaultLimit}
         page={queryParams.page ?? defaultPage}

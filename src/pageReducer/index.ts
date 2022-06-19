@@ -53,16 +53,16 @@ export const useStateReducer = (): NonNullable<ContextStateType> => {
 
   React.useEffect(() => {
     const savedState = localStorage.getItem(appState);
-    if (savedState) {
-      const parsed: StoreType = JSON.parse(savedState);
-      if (parsed.access_token && parsed.refresh_token && parsed.userEmail) {
-        reducer({ type: "SET_USER_DATA", payload: parsed });
-      } else {
-        roter.push({ pathname: "/login" });
-      }
-    } else {
+    if (!savedState) {
       roter.push({ pathname: "/login" });
+      return;
     }
+    const parsedState: StoreType = JSON.parse(savedState);
+    if (Object.values(parsedState).includes("")) {
+      roter.push({ pathname: "/login" });
+      return;
+    }
+    reducer({ type: "SET_USER_DATA", payload: parsedState });
   }, []);
 
   return { state, reducer };

@@ -1,6 +1,9 @@
 import { refreshRequest } from "@src/api";
 import { ContentResponse, TotalCountResponse } from "@src/api/types";
 
+export const defaultLimit = 10;
+export const defaultPage = 0;
+
 interface Arguments<T> {
   access_token: string;
   refresh_token: string;
