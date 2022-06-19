@@ -1,6 +1,6 @@
+import Header from "@components/header";
 import Head from "next/head";
 import React from "react";
-import Header from "@components/header";
 
 export default function Table(): React.ReactElement {
   return (

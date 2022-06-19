@@ -1,20 +1,22 @@
 import { Button, Dialog, DialogProps } from "@blueprintjs/core";
-// import { leadingCallPromise } from "@src/utils";
+import { LoginRequestBody } from "@src/api/types";
 import className from "classnames/bind";
 import React from "react";
 import styles from "./styles.module.scss";
 import { handleChangeInput } from "./utils";
 
 const cnb = className.bind(styles);
-// const lead = leadingCallPromise();
 
 interface Props extends DialogProps {
   buttonButtonText?: string;
   buttonButtonClassname?: string;
   inputAdditionalAttributes?: React.InputHTMLAttributes<HTMLInputElement>;
+  formRequest?: (body: LoginRequestBody) => Promise<void>;
+  error?: string;
 }
 
 export default function ModalLogin({
+  formRequest,
   inputAdditionalAttributes,
   buttonButtonClassname,
   buttonButtonText = "Войти",
@@ -22,12 +24,16 @@ export default function ModalLogin({
   isCloseButtonShown = true,
   ...props
 }: Readonly<Props>): React.ReactElement {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
   const [loaderButton, setLoaderButton] = React.useState<boolean>(false);
+  const [password, setPassword] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
 
-  const formSubmiting = (e: React.FormEvent<HTMLFormElement>) => {
+  const formSubmiting = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (formRequest) {
+      setLoaderButton(true);
+      formRequest({ email, password }).finally(() => setLoaderButton(false));
+    }
   };
 
   return (

@@ -4,13 +4,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: lightblue;
+  border-bottom: 1px solid gray;
 
-  .leftText {
+  .titleStyle {
+    margin: 0;
   }
 
   .buttonStyles {
     border-radius: 10px;
     padding: 10px 60px;
+  }
+}
+
+.userStyles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .titleStyle {
+    margin: 0;
+  }
+
+  .avatarIcon {
+    $size: 30px;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    border: 2px solid orange;
+    background: lightpink;
   }
 }

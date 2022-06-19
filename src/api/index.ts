@@ -1,29 +1,21 @@
+import { ContentRequestParams, LoginRequestBody, LoginSuccessBody } from "./types";
+
 const baseUrl = "http://api.interview.michaelknyazev.com/";
 
 const getJson = (resp: Response) => resp.json();
-
-interface LoginRequestBody {
-  email: string;
-  password: string;
-}
 
 export const loginRequest = (loginData: LoginRequestBody) =>
   fetch(baseUrl + "api/v1/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(loginData)
-  }).then(getJson);
+  }).then<LoginSuccessBody>(getJson);
 
 export const refreshRequest = (token: string) =>
   fetch(baseUrl + "api/v1/refresh", {
     method: "POST",
     headers: { "x-refresh-token": token }
   }).then(getJson);
-
-interface ContentRequestParams {
-  page?: number;
-  limit?: number;
-}
 
 export const contentRequest = (
   token: string,
