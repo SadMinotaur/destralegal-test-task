@@ -8,8 +8,8 @@ export interface SetUserPayload extends TokenPair {
 }
 
 export interface SetTokenAction {
-  type: "SET_TOKENS";
-  payload: TokenPair;
+  type: "REFRESH_TOKEN";
+  payload: string;
 }
 export interface SetUserAction {
   type: "SET_USER_DATA";

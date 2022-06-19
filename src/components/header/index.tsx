@@ -1,5 +1,4 @@
 import { Button } from "@blueprintjs/core";
-import { useStateValue } from "@src/pageReducer";
 import className from "classnames/bind";
 import React from "react";
 import styles from "./styles.module.scss";
@@ -9,15 +8,15 @@ const cnb = className.bind(styles);
 
 interface Props {
   onButtonClick?: () => void;
+  onUserClick?: () => void;
+  username?: string;
 }
 
-function Header({ onButtonClick }: Readonly<Props>): React.ReactElement {
-  const stateValue = useStateValue();
-
-  const showLogined = stateValue?.state.refresh_token && stateValue?.state.access_token;
-
-  // const onUserClick = () => stateValue?.reducer({ type: "RESET_STORE" });
-
+export default function Header({
+  onButtonClick,
+  username,
+  onUserClick
+}: Readonly<Props>): React.ReactElement {
   return (
     <header className={cnb("headerWrapper")}>
       <h5 className={cnb("bp4-heading", "titleStyle")}>
@@ -25,8 +24,8 @@ function Header({ onButtonClick }: Readonly<Props>): React.ReactElement {
         <br />
         задание
       </h5>
-      {showLogined ? (
-        <User title={stateValue?.state.userEmail} />
+      {username ? (
+        <User title={username} onClick={onUserClick} />
       ) : (
         <Button
           className={cnb("buttonStyles")}
@@ -38,5 +37,3 @@ function Header({ onButtonClick }: Readonly<Props>): React.ReactElement {
     </header>
   );
 }
-
-export default React.memo(Header);

@@ -40,24 +40,26 @@ export default function ModalLogin({
     <Dialog isCloseButtonShown={isCloseButtonShown} title={title} {...props}>
       <form className={cnb("dialogBody")} onSubmit={formSubmiting}>
         <div className={cnb("inputsGroup")}>
+          <label>Email</label>
           <input
             required
             type='email'
             name='email'
             className={cnb("bp4-input", "bp4-round")}
-            placeholder='email'
+            placeholder='Email'
             value={email}
             onChange={handleChangeInput(setEmail)}
             autoComplete='on'
             {...inputAdditionalAttributes}
           />
+          <label>Пароль</label>
           <input
             autoComplete='on'
             required
             name='password'
             type='password'
             className={cnb("bp4-input", "bp4-round")}
-            placeholder='password'
+            placeholder='Пароль'
             value={password}
             onChange={handleChangeInput(setPassword)}
             {...inputAdditionalAttributes}
